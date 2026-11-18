@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 240" role="img" aria-labelledby="title">
+  <title id="title">Pikachu corriendo</title>
+  <path fill="#facc15" stroke="#7c4a03" stroke-width="7" stroke-linejoin="round" d="M80 80 51 18l43 31c13-8 29-11 43-8l45-35-25 70c17 14 27 33 27 57 0 42-32 72-74 72s-74-30-74-72c0-22 8-40 24-53Z"/>
+  <circle cx="99" cy="116" r="10" fill="#171717"/>
+  <circle cx="156" cy="116" r="10" fill="#171717"/>
+  <circle cx="78" cy="146" r="14" fill="#ef4444"/>
+  <circle cx="177" cy="146" r="14" fill="#ef4444"/>
+  <path fill="none" stroke="#7c4a03" stroke-width="6" stroke-linecap="round" d="M117 150q8 8 16 0"/>
+  <path fill="#facc15" stroke="#7c4a03" stroke-width="7" d="m71 180-51 22 43-45 25 12ZM174 181l66 12-55-35-25 15Z"/>
+  <path fill="none" stroke="#7c4a03" stroke-width="8" stroke-linecap="round" d="m100 193-32 30m79-30 35 24"/>
+</svg>

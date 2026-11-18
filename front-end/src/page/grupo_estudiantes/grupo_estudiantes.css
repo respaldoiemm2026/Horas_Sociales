@@ -1,0 +1,237 @@
+:root {
+    --bg-main: #eef3f8;
+    --bg-soft: #f5f7fb;
+    --bg-panel: #ffffff;
+    --text-main: #1f2937;
+    --text-muted: #5f6b7a;
+    --border-color: #dfe5ef;
+    --button-bg: #dfe7f4;
+}
+
+.group-detail {
+    max-width: 1000px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+    color: var(--text-muted);
+    text-decoration: none;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+.group-detail h1 {
+    margin-bottom: 24px;
+    color: var(--text-main);
+}
+
+.group-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin: 0 0 16px;
+}
+
+.group-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    padding: 10px 16px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font: inherit;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.group-action:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.18);
+}
+
+.group-action:focus-visible,
+.certificate-btn:focus-visible {
+    outline: 3px solid rgba(37, 99, 235, 0.25);
+    outline-offset: 2px;
+}
+
+.group-action-primary {
+    background: #2563eb;
+    color: #fff;
+}
+
+.group-action-primary:hover {
+    background: #1d4ed8;
+}
+
+.certificate-btn {
+    min-height: 36px;
+    padding: 8px 12px;
+    border: 1px solid #bfdbfe;
+    border-radius: 9px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.certificate-btn:hover {
+    transform: translateY(-1px);
+    background: #dbeafe;
+    box-shadow: 0 5px 12px rgba(37, 99, 235, 0.14);
+}
+
+.student-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.transfer-student-btn {
+    min-height: 36px;
+    padding: 8px 12px;
+    border: 1px solid #bfdbfe;
+    border-radius: 9px;
+    background: #eff6ff;
+    color: #1d4ed8;
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.transfer-student-btn:hover {
+    transform: translateY(-1px);
+    background: #dbeafe;
+    box-shadow: 0 5px 12px rgba(37, 99, 235, 0.14);
+}
+
+.transfer-modal[hidden] {
+    display: none;
+}
+
+.transfer-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+}
+
+.transfer-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.48);
+}
+
+.transfer-modal-card {
+    position: relative;
+    width: min(520px, 100%);
+    padding: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2);
+}
+
+.transfer-modal-eyebrow {
+    display: block;
+    margin-bottom: 8px;
+    color: #2563eb;
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.transfer-modal-card h2 {
+    margin: 0 0 8px;
+    color: var(--text-main);
+}
+
+.transfer-modal-card p {
+    margin: 0 0 22px;
+    color: var(--text-muted);
+}
+
+.transfer-modal-close {
+    position: absolute;
+    top: 14px;
+    right: 16px;
+    border: 0;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.transfer-fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.transfer-fields label {
+    display: grid;
+    gap: 7px;
+    color: var(--text-main);
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+.transfer-fields select {
+    min-height: 42px;
+    padding: 8px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--bg-soft);
+    color: var(--text-main);
+    font: inherit;
+}
+
+.transfer-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 26px;
+}
+
+.group-action-secondary {
+    border-color: var(--border-color);
+    background: var(--bg-soft);
+    color: var(--text-main);
+}
+
+.delete-student {
+    padding: 6px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background: var(--bg-panel);
+    color: var(--text-main);
+    cursor: pointer;
+}
+
+.delete-student:hover {
+    background: var(--bg-soft);
+}
+
+@media (max-width: 700px) {
+    .group-actions {
+        justify-content: stretch;
+    }
+
+    .group-action {
+        width: 100%;
+    }
+}

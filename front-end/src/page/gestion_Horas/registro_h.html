@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialHours - Gestión de Horas Estudiantiles</title>
+    <link rel="stylesheet" href="registro_h.css">
+    <link rel="stylesheet" href="../../styles/secretaria-layout.css">
+    <script src="../../scripts/auth-guard.js"></script>
+    <script src="../../scripts/ui-feedback.js"></script>
+    <script src="../../scripts/api-client.js"></script>
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="logo-container">
+            <img src="https://cdn-icons-png.flaticon.com/128/3936/3936550.png" alt="" class="icon-clock">
+            <span class="logo-text">SocialHours</span>
+        </div>
+        
+        <div class="header-actions">
+            <div class="search-bar">
+                <input class="student-search" type="text" placeholder="Buscar Estudiante...">
+            </div>
+            <button id="logoutBtn" class="btn-logout" type="button">Cerrar sesión</button>
+            <div class="user-avatar profile-avatar-trigger">
+                <img src="https://i.pravatar.cc/80?img=12" alt="Perfil" class="profile-photo">
+            </div>
+        </div>
+    </header>
+
+    <div class="app-layout">
+        
+        <aside class="sidebar">
+            <nav class="menu">
+                <ul>
+                    <li>
+                        <a href="../home_secretaria/p_profesor.html">Panel de Control</a>
+                    </li>
+                    <li>
+                        <a href="../estudiantes_registrados/estudiantes_registrados.html">Estudiantes Registrados</a>
+                    </li>
+                    <li class="active">
+                        <a href="./registro_h.html">Gestionar Horas</a>
+                    </li>
+                    <li>
+                        <a href="../registro/historial_registros.html">Historial de Registros</a>
+                    </li>
+                    <li>
+                        <a href="../configuracion/configuracion.html">Configuración</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <aside class="notifications-sidebar" aria-label="Notificaciones">
+                <h3>Notificaciones</h3>
+                <ul id="notificationsList" class="notifications-list"></ul>
+            </aside>
+            
+            <div class="sidebar-footer">
+                <a href="../configuracion/configuracion.html" class="btn-config">Configuración</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <div class="page-header">
+                <h1>Registrar horas del estudiante</h1>
+                <p>El profesor registra las horas verificadas en el soporte físico firmado.</p>
+            </div>
+
+            <section class="registration-form-section">
+                <h2>Nuevo registro</h2>
+                <p class="required-fields-note">Todos los campos son obligatorios de rellenar.</p>
+                <form id="hoursForm" class="hours-form" novalidate>
+                    <div class="form-grid">
+                        <label data-field="studentIdType">Tipo de Identificación
+                            <select id="studentIdType" name="studentIdType" required>
+                                <option value="">Seleccione</option><option value="T.I">T.I (Tarjeta de Identidad)</option><option value="C.C">C.C (Cédula de Ciudadanía)</option><option value="Pasaporte">Pasaporte</option><option value="Otro">Otro</option>
+                            </select>
+                        </label>
+                        <label data-field="studentId">Número de Identificación
+                            <input id="studentId" name="studentId" required>
+                        </label>
+                        <label data-field="studentStatus">Estado
+                            <select id="studentStatus" name="studentStatus" required>
+                                <option value="">Seleccione</option><option value="activo">Activo</option><option value="retirado">Retirado</option>
+                            </select>
+                        </label>
+                        <label data-field="studentFirstName">Nombre
+                            <input id="studentFirstName" name="studentFirstName" required>
+                        </label>
+                        <label data-field="studentLastName">Apellido
+                            <input id="studentLastName" name="studentLastName" required>
+                        </label>
+                        <label data-field="studentGrade">Grado
+                            <select id="studentGrade" name="studentGrade" required>
+                                <option value="">Seleccione</option><option value="10">10°</option><option value="11">11°</option>
+                            </select>
+                        </label>
+                        <label data-field="studentGroup">Grupo
+                            <select id="studentGroup" name="studentGroup" required>
+                                <option value="">Seleccione</option><option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                            </select>
+                        </label>
+                        <label data-field="literacyPlace">Institución o lugar
+                            <input id="literacyPlace" name="literacyPlace" required>
+                        </label>
+                        <label data-field="registerDate">Fecha
+                            <input type="date" id="registerDate" name="registerDate" required>
+                        </label>
+                        <label data-field="hoursCount">Horas realizadas
+                            <input type="number" id="hoursCount" name="hoursCount" min="0.5" step="0.5" required>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-primary">Registrar horas</button>
+                </form>
+            </section>
+
+            <section class="table-section">
+                
+                <div class="table-header-controls">
+                    <h2>Historial de horas registradas</h2>
+                    <div class="table-filters">
+                        <input class="student-search" type="text" placeholder="Buscar Estudiante o Institución...">
+                        <select>
+                            <option value="todas">Todas</option>
+                        </select>
+                        <input type="date" placeholder="DD/MM/AAAA">
+                    </div>
+                </div>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Estudiante</th>
+                            <th>Fecha</th>
+                            <th>Función/Lugar</th>
+                            <th>Horas</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="hoursTableBody"></tbody>
+                </table>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="../../scripts/notifications.js"></script>
+    <script src="../../scripts/profile-photo.js"></script>
+    <script src="./registro_h.js"></script>
+    <script>
+        function setupLogoutConfirmation() {
+            const logoutButton = document.getElementById('logoutBtn');
+            if (!logoutButton) return;
+
+            let modal = document.getElementById('logoutConfirmationModal');
+            if (!modal) {
+                modal = document.createElement('div');
+                modal.id = 'logoutConfirmationModal';
+                modal.innerHTML = `
+                    <style>
+                        #logoutConfirmationModal { display: none; }
+                        #logoutConfirmationModal.show { display: block; }
+                        .logout-modal-backdrop {
+                            position: fixed;
+                            inset: 0;
+                            background: rgba(15, 23, 42, 0.45);
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            z-index: 9999;
+                        }
+                        .logout-modal-card {
+                            width: min(420px, calc(100vw - 32px));
+                            background: #fff;
+                            border-radius: 18px;
+                            padding: 24px 22px;
+                            box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+                        }
+                        .logout-modal-card h3 { margin: 0 0 12px; font-size: 22px; color: #111827; }
+                        .logout-modal-card p { margin: 0 0 20px; color: #475569; font-size: 16px; }
+                        .logout-modal-actions { display: flex; justify-content: flex-end; gap: 12px; }
+                        .logout-modal-actions button {
+                            border: none; border-radius: 10px; padding: 10px 18px; font-weight: 600; cursor: pointer;
+                        }
+                        .logout-cancel-btn { background: #e2e8f0; color: #1f2937; }
+                        .logout-confirm-btn { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; }
+                    </style>
+                    <div class="logout-modal-backdrop">
+                        <div class="logout-modal-card" role="dialog" aria-modal="true" aria-labelledby="logoutModalTitle">
+                            <h3 id="logoutModalTitle">Cerrar sesión</h3>
+                            <p>¿Seguro que quieres cerrar sesión?</p>
+                            <div class="logout-modal-actions">
+                                <button type="button" class="logout-cancel-btn">Rechazar</button>
+                                <button type="button" class="logout-confirm-btn">Confirmar</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                document.body.appendChild(modal);
+            }
+
+            const confirmBtn = modal.querySelector('.logout-confirm-btn');
+            const cancelBtn = modal.querySelector('.logout-cancel-btn');
+
+            logoutButton.addEventListener('click', (event) => {
+                event.preventDefault();
+                modal.classList.add('show');
+            });
+
+            cancelBtn.addEventListener('click', () => modal.classList.remove('show'));
+            confirmBtn.addEventListener('click', () => {
+                modal.classList.remove('show');
+                localStorage.removeItem('socialhours_token');
+                localStorage.removeItem('socialhours_user');
+                localStorage.setItem('socialhours_logout', String(Date.now()));
+                window.location.href = '../login/inicio_sesion.html';
+            });
+        }
+        setupLogoutConfirmation();
+    </script>
+</body>
+</html>

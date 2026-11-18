@@ -1,0 +1,131 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model usuarios {
+  id                   Int               @id @default(autoincrement())
+  nombre               String            @db.VarChar(100)
+  apellido             String            @db.VarChar(100)
+  id_curso             Int?
+  contraseña           String            @db.VarChar(255)
+  id_tipo_documento    Int
+  numero_documento     String            @unique @db.VarChar(30)
+  id_rol               Int
+  id_lugar             Int?
+  estado               String            @default("activo") @db.VarChar(20)
+  anio_escolar         Int?
+  curso                curso?            @relation(fields: [id_curso], references: [id])
+  tipo_documento       tipo_documento    @relation(fields: [id_tipo_documento], references: [id])
+  rol                  rol               @relation(fields: [id_rol], references: [id])
+  lugar                lugar?            @relation(fields: [id_lugar], references: [id])
+  registrosProfesor    registro[]        @relation("ProfesorRegistro")
+  registrosUsuario     registro[]        @relation("UsuarioRegistro")
+  email                String            @unique @db.VarChar(255)
+  migracionesEjecutadas migracion_academica[] @relation("MigracionEjecutor")
+  detallesMigracion    migracion_detalle[] @relation("MigracionEstudiante")
+
+  @@index([email])
+  @@index([id_rol, apellido, nombre])
+  @@index([id_curso])
+  @@index([id_lugar])
+  @@index([id_tipo_documento])
+}
+
+model grado {
+  id      Int      @id @default(autoincrement())
+  grado  String   @db.VarChar(10)
+  cursos  curso[]
+}
+
+model jornada {
+  id       Int      @id @default(autoincrement())
+  jornada  String   @db.VarChar(30)
+  cursos   curso[]
+}
+
+model lugar {
+  id         Int        @id @default(autoincrement())
+  nombre     String     @db.VarChar(100)
+  registros  registro[]
+  usuarios   usuarios[]
+}
+
+model rol {
+  id        Int         @id @default(autoincrement())
+  rol       String      @db.VarChar(50)
+  usuarios  usuarios[]
+}
+
+model tipo_documento {
+  id        Int         @id @default(autoincrement())
+  nombre    String      @db.VarChar(50)
+  usuarios  usuarios[]
+}
+
+model curso {
+  id           Int       @id @default(autoincrement())
+  id_jornada   Int
+  id_grado     Int
+  grado       grado    @relation(fields: [id_grado], references: [id])
+  jornada      jornada   @relation(fields: [id_jornada], references: [id])
+  usuarios     usuarios[]
+
+  @@index([id_grado, id_jornada])
+}
+
+model registro {
+  id              Int        @id @default(autoincrement())
+  inicio          DateTime   @db.Time(0)
+  final           DateTime   @db.Time(0)
+  id_profesor     Int
+  id_usuario      Int
+  id_lugar        Int
+  descrip         String?    @db.Text
+  horas_totales   Decimal?   @db.Decimal(10, 2)
+  profesor        usuarios   @relation("ProfesorRegistro", fields: [id_profesor], references: [id])
+  usuario         usuarios   @relation("UsuarioRegistro", fields: [id_usuario], references: [id])
+  lugar           lugar      @relation(fields: [id_lugar], references: [id])
+
+  @@index([id_usuario])
+  @@index([id_profesor])
+  @@index([id_lugar])
+}
+
+model migracion_academica {
+  id           Int                 @id @default(autoincrement())
+  anio_origen  Int
+  anio_destino Int
+  ejecutado_en DateTime            @default(now())
+  ejecutado_por Int
+  estado       String              @default("confirmada") @db.VarChar(20)
+  ejecutor     usuarios            @relation("MigracionEjecutor", fields: [ejecutado_por], references: [id])
+  detalles     migracion_detalle[]
+
+  @@index([anio_origen, anio_destino])
+  @@index([ejecutado_por])
+}
+
+model migracion_detalle {
+  id                  Int                 @id @default(autoincrement())
+  migracion_id        Int
+  estudiante_id       Int
+  grado_anterior      String?             @db.VarChar(10)
+  grado_nuevo         String?             @db.VarChar(10)
+  estado_anterior     String              @db.VarChar(20)
+  estado_nuevo        String              @db.VarChar(20)
+  accion              String              @db.VarChar(30)
+  migracion           migracion_academica @relation(fields: [migracion_id], references: [id])
+  estudiante          usuarios            @relation("MigracionEstudiante", fields: [estudiante_id], references: [id])
+
+  @@index([migracion_id])
+  @@index([estudiante_id])
+}

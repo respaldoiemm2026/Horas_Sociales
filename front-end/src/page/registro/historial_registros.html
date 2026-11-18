@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialHours - Historial de registros</title>
+    <link rel="stylesheet" href="./historial_registros.css">
+    <link rel="stylesheet" href="../../styles/secretaria-layout.css">
+    <script src="../../scripts/auth-guard.js"></script>
+    <script src="../../scripts/ui-feedback.js"></script>
+    <script src="../../scripts/api-client.js"></script>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="https://cdn-icons-png.flaticon.com/128/3936/3936550.png" alt="Ícono de SocialHours" class="logo-icono">
+                <h2>SocialHours</h2>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="../home_secretaria/p_profesor.html">Panel de Control</a></li>
+                    <li><a href="../estudiantes_registrados/estudiantes_registrados.html">Estudiantes Registrados</a></li>
+                    <li><a href="../gestion_Horas/registro_h.html">Gestionar Horas</a></li>
+                    <li class="active"><a href="./historial_registros.html">Historial de Registros</a></li>
+                    <li><a href="../configuracion/configuracion.html">Configuración</a></li>
+                </ul>
+            </nav>
+            <aside class="notifications-sidebar" aria-label="Notificaciones">
+                <h3>Notificaciones</h3>
+                <ul id="notificationsList" class="notifications-list"></ul>
+            </aside>
+            <div class="sidebar-footer">
+                <a href="../configuracion/configuracion.html" class="btn-config">Configuración</a>
+            </div>
+        </aside>
+        <main class="main-content">
+            <header class="top-header">
+                <div class="logo-container">
+                    <img src="https://cdn-icons-png.flaticon.com/128/3936/3936550.png" alt="" class="icon-clock">
+                    <span class="logo-text">SocialHours</span>
+                </div>
+                <div class="user-actions">
+                    <button id="logoutBtn" class="btn-logout" type="button">Cerrar sesión</button>
+                    <div class="user-avatar profile-avatar-trigger">
+                        <img src="https://i.pravatar.cc/80?img=12" alt="Perfil" class="profile-photo">
+                    </div>
+                </div>
+            </header>
+            <section class="table-section">
+                <h1>Historial completo de registros</h1>
+                <div class="table-filters">
+                    <input id="recordSearch" type="text" placeholder="Buscar Estudiante o institución...">
+                    <select id="dateOrder" aria-label="Ordenar por fecha">
+                        <option value="desc">Más recientes primero</option>
+                        <option value="asc">Más antiguos primero</option>
+                    </select>
+                </div>
+                <table class="students-table">
+                    <thead>
+                        <tr>
+                            <th>Estudiante</th>
+                            <th>Grado</th>
+                            <th>Grupo</th>
+                            <th>Función/Lugar</th>
+                            <th>Total de horas</th>
+                            <th>Estado</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody id="allRecordsBody"></tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+    <script src="../../scripts/notifications.js"></script>
+    <script src="../../scripts/profile-photo.js"></script>
+    <script src="./historial_registros.js"></script>
+</body>
+</html>

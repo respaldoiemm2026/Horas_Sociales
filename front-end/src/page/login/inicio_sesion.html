@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialHours - Inicio de sesión</title>
+    <link rel="stylesheet" href="inicio_sesion.css">
+    <script src="../../scripts/ui-feedback.js"></script>
+    <script src="../../scripts/api-client.js"></script>
+</head>
+<body>
+
+    <main class="contenedor-tarjeta">
+        <section class="tarjeta-acceso">
+            <div class="contenedor-logo">
+                <img src="https://cdn-icons-png.flaticon.com/128/3936/3936550.png" alt="Ícono de SocialHours" class="logo-icono">
+                <h1 class="logo-texto">SocialHours</h1>
+            </div>
+
+            <div class="welcome-container">
+                <h2 class="titulo-bienvenida">Bienvenido a SocialHours</h2>
+                <p class="subtitulo-bienvenida">inicia sesión para continuar</p>
+            </div>
+
+            <form id="loginForm" class="login-form" novalidate>
+                 
+                <div class="form-group">
+                    <label for="user-email">Correo Electrónico o Usuario</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="user-email" name="email" placeholder="correo@gmail.com o número de documento" autocomplete="username" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="user-password">Contraseña</label>
+                    <div class="input-wrapper">
+                        <span class="icon-lock" aria-hidden="true"></span>
+                        <input type="password" id="user-password" name="password" placeholder="********" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="user-role">Rol</label>
+                    <div class="input-wrapper">
+                        <select id="user-role" name="role" required>
+                            <option value="">Selecciona tu rol</option>
+                            <option value="1">Administrador</option>
+                            <option value="3">Secretaria</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn primario-btn gris-btn">Iniciar Sesión</button>
+                </div>
+
+            </form>
+
+        </section>
+    </main>
+    <script src="./inicio_sesion.js"></script>
+</body>
+</html>

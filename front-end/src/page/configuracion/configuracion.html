@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialHours - Configuración</title>
+    <link rel="stylesheet" href="./configuracion.css">
+    <link rel="stylesheet" href="../../styles/secretaria-layout.css">
+    <script src="../../scripts/auth-guard.js"></script>
+    <script src="../../scripts/ui-feedback.js"></script>
+    <script src="../../scripts/api-client.js"></script>
+</head>
+<body>
+    <header class="top-header">
+        <div class="logo-container">
+            <img src="https://cdn-icons-png.flaticon.com/128/3936/3936550.png" alt="" class="icon-clock">
+            <span class="logo-text">SocialHours</span>
+        </div>
+
+        <div class="header-actions">
+            <div class="search-bar">
+                <input class="student-search" type="text" placeholder="Buscar estudiante o configuración...">
+            </div>
+            <button id="logoutBtn" class="btn-logout" type="button">Cerrar sesión</button>
+            <div class="user-avatar profile-avatar-trigger">
+                <img src="https://i.pravatar.cc/80?img=12" alt="Perfil" class="profile-photo">
+            </div>
+        </div>
+    </header>
+
+    <div class="app-layout">
+        <aside class="sidebar">
+            <nav class="main-nav menu">
+                <ul>
+                    <li>
+                        <a href="../home_secretaria/p_profesor.html">Panel de Control</a>
+                    </li>
+                    <li>
+                        <a href="../estudiantes_registrados/estudiantes_registrados.html">Estudiantes Registrados</a>
+                    </li>
+                    <li>
+                        <a href="../gestion_Horas/registro_h.html">Gestionar Horas</a>
+                    </li>
+                    <li>
+                        <a href="../registro/historial_registros.html">Historial de Registros</a>
+                    </li>
+                    <li class="active">
+                        <a href="./configuracion.html">Configuración</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <aside class="notifications-sidebar" aria-label="Notificaciones">
+                <h3>Notificaciones</h3>
+                <ul id="notificationsList" class="notifications-list"></ul>
+            </aside>
+
+            <div class="sidebar-footer">
+                <a class="btn-config" href="./configuracion.html">Configuración</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Configuración</h1>
+                <p>Administra tu cuenta y seguridad</p>
+            </div>
+
+            <section class="settings-content">
+                <div class="card">
+                    <h2>👤 Perfil</h2>
+                    <p class="descripcion">Gestiona tu información de perfil y foto</p>
+
+                    <p class="label-foto">Foto de perfil</p>
+                    <div class="foto-perfil-cont">
+                        <img class="foto-perfil profile-photo" src="https://i.pravatar.cc/150?img=12" id="imgPerfil" alt="Foto de perfil">
+                    </div>
+                    <p class="info-foto">JPG, PNG o GIF. Máx. 2MB.</p>
+
+                    <input type="file" id="inputFoto" style="display:none" onchange="cambiarFoto()">
+                    <button class="btn-outline azul" type="button" onclick="document.getElementById('inputFoto').click()">Cambiar foto</button>
+                    <button class="btn-outline rojo" type="button" onclick="eliminarFoto()">Eliminar foto</button>
+
+                    <div class="info-cuenta">
+                        <h3>Información de la cuenta</h3>
+
+                        <p class="label">Nombre completo</p>
+                        <p class="valor" id="nombreCuenta">Carlos Gómez</p>
+
+                        <p class="label">Correo electrónico</p>
+                        <p class="valor" id="correoCuenta">carlos.gomez@montessori.edu.co</p>
+
+                        <p class="label">Rol</p>
+                        <span class="badge" id="rolCuenta">Secretaria</span>
+
+                        <p class="label">Autorizado</p>
+                        <span class="badge" id="autorizadoCuenta">Sí</span>
+                    </div>
+                </div>
+
+                <div class="card password-card">
+                    <h2>🔒 Cambiar contraseña</h2>
+                    <p class="descripcion">Confirma tu contraseña actual y registra una nueva.</p>
+                    <form id="changePasswordForm" class="password-form" novalidate>
+                        <label for="currentPassword">Contraseña actual</label>
+                        <input id="currentPassword" name="currentPassword" type="password" required>
+                        <label for="currentPasswordConfirmation">Repite la contraseña actual</label>
+                        <input id="currentPasswordConfirmation" name="currentPasswordConfirmation" type="password" required>
+                        <label for="newPassword">Nueva contraseña</label>
+                        <input id="newPassword" name="newPassword" type="password" required>
+                        <label for="newPasswordConfirmation">Repite la nueva contraseña</label>
+                        <input id="newPasswordConfirmation" name="newPasswordConfirmation" type="password" required>
+                        <button class="btn-outline azul" type="submit">Actualizar contraseña</button>
+                    </form>
+                </div>
+
+                <div class="card" id="addUserCard" hidden>
+                    <h2>Agregar Usuario</h2>
+                    <p class="descripcion">Crea una cuenta con contraseña inicial igual al ID.</p>
+                    <form id="addUserForm" class="password-form" novalidate>
+                        <label for="newUserNombre">Nombre</label>
+                        <input id="newUserNombre" name="nombre" type="text" required>
+                        <label for="newUserApellido">Apellido</label>
+                        <input id="newUserApellido" name="apellido" type="text" required>
+                        <label for="newUserId">ID</label>
+                        <input id="newUserId" name="numero_documento" type="text" required>
+                        <label for="newUserEmail">Correo</label>
+                        <input id="newUserEmail" name="email" type="email" required>
+                        <label for="newUserRole">Rol</label>
+                        <select id="newUserRole" name="id_rol" required>
+                            <option value="">Selecciona un rol</option>
+                            <option value="3">Secretaria</option>
+                            <option value="1">Administrador</option>
+                        </select>
+                        <button class="btn-outline azul" type="submit">Agregar usuario</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="../../scripts/notifications.js"></script>
+    <script src="../../scripts/profile-photo.js"></script>
+    <script src="./configuracion.js"></script>
+</body>
+</html>

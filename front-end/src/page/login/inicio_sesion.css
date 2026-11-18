@@ -1,0 +1,165 @@
+
+:root {
+    --bg-color: #eef3f8;
+    --card-bg: #ffffff;
+    --text-main: #1f2937;
+    --text-muted: #5f6b7a;
+    --input-border: #dfe5ef;
+    --gray-btn: #dfe7f4;
+    --dark-btn: #1f2937;
+    --radius: 12px;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.socialhours-toast {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    max-width: min(380px, calc(100vw - 32px));
+    padding: 14px 18px;
+    border: 1px solid #bfdbfe;
+    border-radius: 14px;
+    background: #ffffff;
+    color: #1f2937;
+    box-shadow: 0 14px 35px rgba(15, 23, 42, 0.18);
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(-12px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    pointer-events: none;
+}
+
+.socialhours-toast.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.socialhours-toast-success { border-color: #86efac; }
+.socialhours-toast-error { border-color: #fca5a5; }
+
+.contenedor-tarjeta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    width: 100%;
+    padding-bottom: 50px;
+}
+
+.tarjeta-acceso {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 420px;
+    padding: 40px;
+    border-radius: var(--radius);
+    text-align: center;
+}
+
+.contenedor-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.logo-icono {
+    width: 40px;
+    height: 40px;
+}
+
+.logo-texto {
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+    font-family: Tahoma, Verdana, sans-serif;
+}
+
+.titulo-bienvenida {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    font-family: Tahoma, Verdana, sans-serif;
+}
+
+.subtitulo-bienvenida {
+    color: var(--text-muted);
+    font-size: 13px;
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-family: Tahoma, Verdana, sans-serif;
+}
+
+.login-form {
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    font-family: Tahoma, Verdana, sans-serif;
+}
+
+.form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.input-wrapper {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--input-border);
+    border-radius: 12px;
+    padding: 10px 15px;
+    background: #f5f7fb;
+}
+
+.input-wrapper input, 
+.input-wrapper select {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+    margin-left: 10px;
+    background: transparent;
+    color: var(--text-main);
+}
+
+.btn {
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.btn:hover{
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.gris-btn {
+    background-color: var(--gray-btn);
+    color: var(--text-main);
+    cursor: pointer;
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.gris-btn:hover{
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.3);
+}

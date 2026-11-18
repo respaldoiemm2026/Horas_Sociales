@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialHours - Panel de Control</title>
+    <link rel="stylesheet" href="p_profesor.css">
+    <link rel="stylesheet" href="../../styles/secretaria-layout.css">
+    <script src="../../scripts/auth-guard.js"></script>
+    <script src="../../scripts/ui-feedback.js"></script>
+    <script src="../../scripts/api-client.js"></script>
+</head>
+<body>
+    
+
+    <div class="container">
+
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="https://cdn-icons-png.flaticon.com/128/3936/3936550.png" alt="Ícono de SocialHours" class="logo-icono">
+                <h2>SocialHours</h2>
+            </div>
+            
+            <nav class="menu">
+                <ul>
+                    <li class="active"><a href="./p_profesor.html">Panel de Control</a></li>
+                    <li><a href="../estudiantes_registrados/estudiantes_registrados.html">Estudiantes Registrados</a></li>
+                    <li><a href="../gestion_Horas/registro_h.html">Gestionar Horas</a></li>
+                    <li><a href="../registro/historial_registros.html">Historial de Registros</a></li>
+                    <li><a href="../configuracion/configuracion.html">Configuración</a></li>
+                </ul>
+            </nav>
+
+            <aside class="notifications-sidebar" aria-label="Notificaciones">
+                <h3>Notificaciones</h3>
+                <ul id="notificationsList" class="notifications-list"></ul>
+            </aside>
+
+            <div class="sidebar-footer">
+                <a href="../configuracion/configuracion.html" class="btn-config">Configuración</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+
+            <header class="top-header">
+                <div class="logo-container">
+                    <img src="https://cdn-icons-png.flaticon.com/128/3936/3936550.png" alt="" class="icon-clock">
+                    <span class="logo-text">SocialHours</span>
+                </div>
+                <div class="search-bar">
+                    <input class="student-search" type="text" placeholder="Buscar Estudiante o institución...">
+                </div>
+                <div class="user-actions">
+                    <button id="logoutBtn" class="btn-logout" type="button">Cerrar sesión</button>
+                    <div class="user-avatar profile-avatar-trigger">
+                        <img src="https://i.pravatar.cc/80?img=12" alt="Perfil" class="profile-photo">
+                    </div>
+                </div>
+            </header>
+
+            <section class="dashboard">
+                <h1 id="userTitle">
+                    <span id="userTitleText">Panel de Secretaria</span>
+                    <button id="pikachuTrigger" class="pikachu-trigger" type="button" aria-label="Abrir imagen especial" title="Abrir Pikachu">⚡</button>
+                </h1>
+                <section class="welcome-panel" aria-labelledby="welcomeTitle">
+                    <h2 id="welcomeTitle">Bienvenido</h2>
+                    <p id="welcomeMessage"></p>
+                    <p>Bienvenido a la página de Horas Sociales de la Institución Educativa María Montessori, un espacio creado para promover la responsabilidad, solidaridad y compromiso de nuestros estudiantes con la comunidad.</p>
+                    <p>Esta página tiene como objetivo facilitar la organización y seguimiento de las horas sociales, permitiendo consultar las actividades, horarios, proyectos y registrar las horas realizadas. De esta manera, buscamos apoyar la formación integral de los estudiantes y su participación activa en la comunidad.</p>
+                </section>
+
+                <div class="stats-grid">
+                    <div class="card card-gray">
+                        <p>Total de estudiantes</p>
+                        <span id="totalStudentsStat" class="stat-number">0</span>
+                    </div>
+                    <div class="card card-blue">
+                        <p>Grado 10°</p>
+                        <span id="grade10Stat" class="stat-number">0</span>
+                    </div>
+                    <div class="card card-blue">
+                        <p>Grado 11°</p>
+                        <span id="grade11Stat" class="stat-number">0</span>
+                    </div>
+                    <div class="card card-gray">
+                        <p>Estudiantes con horas registradas</p>
+                        <span id="studentsWithHoursStat" class="stat-number">0</span>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <footer class="main-footer">
+                <div class="footer-columns">
+                    <section class="footer-column" aria-labelledby="footer-company-title">
+                        <h2 id="footer-company-title">Compañía</h2>
+                        <a href="#" data-footer-title="Sobre SocialHours" data-footer-content="SocialHours facilita el registro, seguimiento y consulta de las horas sociales de la I.E. María Montessori.">Sobre SocialHours</a>
+                        <a href="#" data-footer-title="I.E. María Montessori" data-footer-content="Plataforma institucional para acompañar a los estudiantes, docentes y secretaría en la gestión de las horas sociales.">I.E. María Montessori</a>
+                        <a href="#" data-footer-title="¿Cómo funciona?" data-footer-content="La secretaría registra estudiantes y actividades, los responsables hacen seguimiento de las horas y la institución puede consultar el avance y los certificados.">¿Cómo funciona?</a>
+                        <a href="#" data-footer-title="Contacto" data-footer-content="Para recibir soporte, comunícate con la secretaría o con los responsables de la plataforma en la institución.">Contacto</a>
+                    </section>
+                    <section class="footer-column" aria-labelledby="footer-resources-title">
+                        <h2 id="footer-resources-title">Recursos</h2>
+                        <a href="#" data-footer-title="Guía de uso" data-footer-content="Usa el menú lateral para consultar estudiantes, registrar horas, revisar el historial y administrar tu cuenta desde Configuración.">Guía de uso</a>
+                        <a href="#" data-footer-title="Preguntas frecuentes" data-footer-content="Si tienes dudas sobre registros, horas o certificados, revisa primero el historial y confirma que la información del estudiante esté actualizada.">Preguntas frecuentes</a>
+                        <a href="#" data-footer-title="Centro de ayuda" data-footer-content="Si encuentras un problema, anota la pantalla y la acción que realizabas y comunícalo a la secretaría o al administrador del sistema.">Centro de ayuda</a>
+                        <a href="#" data-footer-title="Formatos" data-footer-content="Los formatos institucionales relacionados con las horas sociales pueden ser consultados con la secretaría.">Formatos</a>
+                    </section>
+                    <section class="footer-column" aria-labelledby="footer-legal-title">
+                        <h2 id="footer-legal-title">Legal</h2>
+                        <a href="#" data-footer-title="Política de privacidad" data-footer-content="La plataforma utiliza la información necesaria para gestionar las horas sociales y debe ser utilizada únicamente con fines institucionales.">Política de privacidad</a>
+                        <a href="#" data-footer-title="Tratamiento de datos" data-footer-content="El tratamiento de los datos de los estudiantes debe realizarse de acuerdo con las políticas de la institución y la normativa aplicable.">Tratamiento de datos</a>
+                        <a href="#" data-footer-title="Términos de uso" data-footer-content="El acceso a SocialHours implica utilizar la información de forma responsable y respetar los permisos asignados a cada usuario.">Términos de uso</a>
+                        <a href="#" data-footer-title="Accesibilidad" data-footer-content="Trabajamos para que la plataforma sea clara y usable por toda la comunidad educativa.">Accesibilidad</a>
+                    </section>
+                </div>
+                <p class="footer-copyright">© 2026 SocialHours — I.E. María Montessori. Todos los derechos reservados.</p>
+            </footer>
+
+        </main>
+    </div>
+
+    <div id="pikachuModal" class="pikachu-modal" aria-hidden="true">
+        <div id="pikachuScene" class="pikachu-scene" role="dialog" aria-modal="true" aria-labelledby="pikachuTitle">
+            <button id="closePikachuBtn" class="pikachu-close" type="button" aria-label="Cerrar animación">×</button>
+            <div class="pikachu-controls" aria-label="Controles de animación">
+                <button id="pikachuAttackBtn" type="button">⚡ Ataque eléctrico</button>
+                <button id="pikachuInvasionBtn" type="button">👾 Invasión Pikachu</button>
+                <button id="pikachuFullscreenBtn" type="button">⛶ Pantalla completa</button>
+            </div>
+            <div class="pikachu-global-lightning" aria-hidden="true">
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div id="pikachuInvasion" class="pikachu-invasion" aria-hidden="true"></div>
+            <div id="pikachuBattle" class="pikachu-battle" aria-hidden="true">Pikachu salvaje apareció</div>
+            <div class="pikachu-sky" aria-hidden="true">
+                <span class="pikachu-moon"></span>
+                <span class="pikachu-cloud pikachu-cloud-one"></span>
+                <span class="pikachu-cloud pikachu-cloud-two"></span>
+                <span class="pikachu-mountain pikachu-mountain-back"></span>
+                <span class="pikachu-mountain pikachu-mountain-front"></span>
+            </div>
+            <div class="pikachu-stage">
+                <canvas id="pikachuCanvas" class="pikachu-canvas" aria-hidden="true"></canvas>
+                <span class="pikachu-lightning pikachu-lightning-left" aria-hidden="true">⚡</span>
+                <img src="../../assets/pikachu.svg" alt="Pikachu" class="pikachu-image pikachu-image-main">
+                <img src="../../assets/pikachu-running.svg" alt="" aria-hidden="true" class="pikachu-image pikachu-image-secondary">
+                <span class="pikachu-lightning pikachu-lightning-right" aria-hidden="true">⚡</span>
+            </div>
+            <div class="pikachu-energy-ring" aria-hidden="true"></div>
+            <h2 id="pikachuTitle" class="pikachu-message" aria-live="polite"></h2>
+        </div>
+    </div>
+
+    <div id="footerInfoModal" class="footer-info-modal" aria-hidden="true">
+        <div class="footer-info-dialog" role="dialog" aria-modal="true" aria-labelledby="footerInfoTitle">
+            <button id="closeFooterInfoBtn" class="footer-info-close" type="button" aria-label="Cerrar información">×</button>
+            <h2 id="footerInfoTitle"></h2>
+            <p id="footerInfoContent"></p>
+        </div>
+    </div>
+
+    <script src="../../scripts/notifications.js"></script>
+    <script src="../../scripts/profile-photo.js"></script>
+    <script src="./p_profesor.js"></script>
+</body>
+</html>

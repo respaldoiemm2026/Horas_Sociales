@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialHours - Total de Estudiantes</title>
+    <link rel="stylesheet" href="./totales_estudiantes.css">
+    <link rel="stylesheet" href="../../styles/secretaria-layout.css">
+    <script src="../../scripts/auth-guard.js"></script>
+    <script src="../../scripts/ui-feedback.js"></script>
+    <script src="../../scripts/api-client.js"></script>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="https://cdn-icons-png.flaticon.com/128/3936/3936550.png" alt="Ícono de SocialHours" class="logo-icono">
+                <h2>SocialHours</h2>
+            </div>
+
+            <nav class="menu">
+                <ul>
+                    <li><a href="../home_secretaria/p_profesor.html">Panel de Control</a></li>
+                    <li class="active"><a href="../estudiantes_registrados/estudiantes_registrados.html">Estudiantes Registrados</a></li>
+                    <li><a href="../gestion_Horas/registro_h.html">Gestionar Horas</a></li>
+                    <li><a href="../registro/historial_registros.html">Historial de Registros</a></li>
+                    <li><a href="../configuracion/configuracion.html">Configuración</a></li>
+                </ul>
+            </nav>
+
+            <div class="notifications-dropdown">
+                <button id="notificationsToggle" class="notifications-toggle" type="button" aria-expanded="false">Notificaciones</button>
+                <aside id="notificationsPanel" class="notifications-sidebar" aria-label="Notificaciones" hidden>
+                    <h3>Notificaciones</h3>
+                    <ul id="notificationsList" class="notifications-list"></ul>
+                </aside>
+            </div>
+
+            <div class="sidebar-footer">
+                <a href="../configuracion/configuracion.html" class="btn-config">Configuración</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="logo-container">
+                    <img src="https://cdn-icons-png.flaticon.com/128/3936/3936550.png" alt="" class="icon-clock">
+                    <span class="logo-text">SocialHours</span>
+                </div>
+                <div class="search-bar">
+                    <input class="student-search" type="text" placeholder="Buscar Estudiante...">
+                </div>
+                <div class="user-actions">
+                    <button id="logoutBtn" class="btn-logout" type="button">Cerrar sesión</button>
+                    <div class="user-avatar profile-avatar-trigger">
+                        <img src="https://i.pravatar.cc/80?img=12" alt="Perfil" class="profile-photo">
+                    </div>
+                </div>
+            </header>
+
+            <section class="dashboard">
+                <div class="page-header-section">
+                    <h1>Total de Estudiantes</h1>
+                    <p class="subtitle">Visualiza todos los estudiantes por categoría</p>
+                </div>
+
+                <div class="stats-container">
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <h3>Estudiantes Vigentes</h3>
+                            <p class="stat-number" id="vicentesCount">0</p>
+                            <p class="stat-description">Activos en 10° y 11°</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <h3>Egresados/Retirados</h3>
+                            <p class="stat-number" id="egresadosCount">0</p>
+                            <p class="stat-description">Graduados o retirados</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-content">
+                            <h3>Total General</h3>
+                            <p class="stat-number" id="totalCount">0</p>
+                            <p class="stat-description">Todos los registros</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-tabs">
+                    <button class="tab-btn active" data-filter="vigentes">
+                        <span class="tab-icon">👥</span>
+                        Vigentes
+                    </button>
+                    <button class="tab-btn" data-filter="egresados">
+                        <span class="tab-icon">🎓</span>
+                        Egresados/Retirados
+                    </button>
+                    <button class="tab-btn" data-filter="todos">
+                        <span class="tab-icon">📋</span>
+                        Todos
+                    </button>
+                </div>
+
+                <section class="student-list-section">
+                    <div class="section-header">
+                        <h3 id="sectionTitle">Estudiantes Vigentes</h3>
+                        <div class="section-controls">
+                            <input type="text" id="searchInput" class="search-input" placeholder="Buscar por nombre, ID o grado...">
+                            <button id="exportBtn" class="btn-export">Exportar</button>
+                        </div>
+                    </div>
+
+                    <div class="table-container">
+                        <table class="students-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Grado</th>
+                                    <th>Estado</th>
+                                    <th>Fecha Registro</th>
+                                    <th>Certificado</th>
+                                    <th>Eliminar</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentsTableBody">
+                                <tr class="no-data">
+                                    <td colspan="8">No hay estudiantes registrados</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section id="trashSection" class="trash-section" hidden>
+                    <div class="trash-header">
+                        <h3>Papelera oculta</h3>
+                        <span>Se elimina automáticamente en 3 meses</span>
+                    </div>
+                    <div id="trashList" class="trash-list"></div>
+                </section>
+            </section>
+        </main>
+    </div>
+
+    <div id="deleteStudentModal" class="delete-student-modal" aria-hidden="true">
+        <div class="delete-student-dialog" role="dialog" aria-modal="true" aria-labelledby="deleteStudentTitle">
+            <button type="button" class="close-modal-btn" data-close-modal="true" aria-label="Cerrar">×</button>
+            <h3 id="deleteStudentTitle">Eliminar registro del estudiante</h3>
+
+            <div id="deleteAlertStep" class="modal-step">
+                <div class="alert-box">
+                    <strong>Alerta:</strong> Esta acción marcará al estudiante para eliminación y lo sacará del registro activo.
+                </div>
+            </div>
+
+            <div id="deleteTermsStep" class="modal-step">
+                <h4>Términos y condiciones</h4>
+                <div class="terms-box">
+                    El estudiante será enviado a la papelera oculta durante 3 meses antes de ser eliminado de forma definitiva
+                    de la web y de la base de datos. Esta acción puede afectar el acceso a su historial y certificados.
+                </div>
+            </div>
+
+            <div id="deleteTermsAcceptanceStep" class="modal-step">
+                <label class="checkbox-row">
+                    <input id="deleteTermsAccepted" type="checkbox">
+                    <span>Confirmo que leí y acepto los TyC.</span>
+                </label>
+            </div>
+
+            <div id="deleteCredentialsStep" class="modal-step">
+                <h4>Correo o usuario y contraseña</h4>
+                <div class="credentials-grid">
+                    <label>
+                        <span>Correo/usuario</span>
+                        <input id="deleteUserIdentifier" type="text" placeholder="correo@ejemplo.com o usuario">
+                    </label>
+                    <label>
+                        <span>Contraseña</span>
+                        <input id="deletePassword" type="password" placeholder="Ingrese su contraseña">
+                    </label>
+                </div>
+            </div>
+
+            <div id="deleteCountdownStep" class="modal-step">
+                <div id="deleteCountdownAlert" class="countdown-alert">
+                    Confirma la eliminación en 8 segundos para continuar.
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" data-close-modal="true">Cancelar</button>
+                <button id="confirmDeleteStudentBtn" type="button" class="btn-danger" disabled>Confirmar eliminación (8s)</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../scripts/notifications.js"></script>
+    <script src="../../scripts/profile-photo.js"></script>
+    <script src="./totales_estudiantes.js"></script>
+</body>
+</html>

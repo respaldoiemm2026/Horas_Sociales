@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialHours - Grupo</title>
+    <link rel="stylesheet" href="../home_secretaria/p_profesor.css">
+    <link rel="stylesheet" href="grupo_estudiantes.css">
+    <link rel="stylesheet" href="../../styles/secretaria-layout.css">
+    <script src="../../scripts/auth-guard.js"></script>
+    <script src="../../scripts/ui-feedback.js"></script>
+    <script src="../../scripts/api-client.js"></script>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="https://cdn-icons-png.flaticon.com/128/3936/3936550.png" alt="Ícono de SocialHours" class="logo-icono">
+                <h2>SocialHours</h2>
+            </div>
+            <nav class="menu">
+                <ul>
+                    <li><a href="../home_secretaria/p_profesor.html">Panel de Control</a></li>
+                    <li class="active"><a href="../estudiantes_registrados/estudiantes_registrados.html">Estudiantes Registrados</a></li>
+                    <li><a href="../gestion_Horas/registro_h.html">Gestionar Horas</a></li>
+                    <li><a href="../registro/historial_registros.html">Historial de Registros</a></li>
+                    <li><a href="../configuracion/configuracion.html">Configuración</a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <a href="../configuracion/configuracion.html" class="btn-config">Configuración</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="logo-container">
+                    <img src="https://cdn-icons-png.flaticon.com/128/3936/3936550.png" alt="" class="icon-clock">
+                    <span class="logo-text">SocialHours</span>
+                </div>
+                <div class="user-actions">
+                    <button id="logoutBtn" class="btn-logout" type="button">Cerrar sesión</button>
+                </div>
+            </header>
+            <section class="group-detail">
+                <a href="../estudiantes_registrados/estudiantes_registrados.html" class="back-link">← Volver a estudiantes registrados</a>
+                <h1 id="groupTitle">Estudiantes del grupo</h1>
+                <div class="group-actions">
+                    <button id="printHoursRosterButton" class="group-action group-action-primary" type="button">
+                        <span aria-hidden="true">⇩</span>
+                        Imprimir listado con horas
+                    </button>
+                </div>
+                <div class="table-section">
+                    <table class="students-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Total de horas</th>
+                                <th>Certificado</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="groupStudentsBody"></tbody>
+                    </table>
+                </div>
+            </section>
+            <div id="transferStudentModal" class="transfer-modal" hidden>
+                <div class="transfer-modal-backdrop" data-close-transfer></div>
+                <div class="transfer-modal-card" role="dialog" aria-modal="true" aria-labelledby="transferStudentTitle">
+                    <button class="transfer-modal-close" type="button" data-close-transfer aria-label="Cerrar">×</button>
+                    <span class="transfer-modal-eyebrow">Gestión académica</span>
+                    <h2 id="transferStudentTitle">Trasladar estudiante</h2>
+                    <p id="transferStudentDescription"></p>
+                    <div class="transfer-fields">
+                        <label>Grado de destino
+                            <select id="transferGrade">
+                                <option value="10">10°</option>
+                                <option value="11">11°</option>
+                            </select>
+                        </label>
+                        <label>Grupo de destino
+                            <select id="transferGroup">
+                                <option value="1">Grupo 1</option>
+                                <option value="2">Grupo 2</option>
+                                <option value="3">Grupo 3</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="transfer-modal-actions">
+                        <button class="group-action group-action-secondary" type="button" data-close-transfer>Cancelar</button>
+                        <button id="confirmTransferButton" class="group-action group-action-primary" type="button">Confirmar traslado</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="./grupo_estudiantes.js"></script>
+</body>
+</html>

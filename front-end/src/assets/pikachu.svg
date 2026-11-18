@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" role="img" aria-labelledby="title">
+  <title id="title">Pikachu</title>
+  <path fill="#facc15" stroke="#7c4a03" stroke-width="7" stroke-linejoin="round" d="M72 83 42 20l45 31c13-7 27-10 41-10s28 3 41 10l45-31-30 63c13 16 19 34 19 55 0 48-34 82-75 82s-75-34-75-82c0-21 6-39 19-55Z"/>
+  <circle cx="91" cy="119" r="10" fill="#171717"/>
+  <circle cx="151" cy="119" r="10" fill="#171717"/>
+  <circle cx="70" cy="151" r="15" fill="#ef4444"/>
+  <circle cx="172" cy="151" r="15" fill="#ef4444"/>
+  <path fill="none" stroke="#7c4a03" stroke-width="6" stroke-linecap="round" d="M112 151q8 8 16 0M119 155v12"/>
+  <path fill="#facc15" stroke="#7c4a03" stroke-width="7" stroke-linejoin="round" d="m55 183-35 20 28-45 24 14ZM185 183l35 20-28-45-24 14Z"/>
+</svg>

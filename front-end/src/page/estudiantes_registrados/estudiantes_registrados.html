@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SocialHours - Estudiantes Registrados</title>
+    <link rel="stylesheet" href="./estudiantes_registrados.css">
+    <link rel="stylesheet" href="../../styles/secretaria-layout.css">
+    <script src="../../scripts/auth-guard.js"></script>
+    <script src="../../scripts/ui-feedback.js"></script>
+    <script src="../../scripts/api-client.js"></script>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="https://cdn-icons-png.flaticon.com/128/3936/3936550.png" alt="Ícono de SocialHours" class="logo-icono">
+                <h2>SocialHours</h2>
+            </div>
+
+            <nav class="menu">
+                <ul>
+                    <li><a href="../home_secretaria/p_profesor.html">Panel de Control</a></li>
+                    <li class="active"><a href="./estudiantes_registrados.html">Estudiantes Registrados</a></li>
+                    <li><a href="../gestion_Horas/registro_h.html">Gestionar Horas</a></li>
+                    <li><a href="../registro/historial_registros.html">Historial de Registros</a></li>
+                    <li><a href="../configuracion/configuracion.html">Configuración</a></li>
+                </ul>
+            </nav>
+
+            <aside class="notifications-sidebar" aria-label="Notificaciones">
+                <h3>Notificaciones</h3>
+                <ul id="notificationsList" class="notifications-list"></ul>
+            </aside>
+
+            <div class="sidebar-footer">
+                <a href="../configuracion/configuracion.html" class="btn-config">Configuración</a>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <div class="logo-container">
+                    <img src="https://cdn-icons-png.flaticon.com/128/3936/3936550.png" alt="" class="icon-clock">
+                    <span class="logo-text">SocialHours</span>
+                </div>
+                <div class="search-bar">
+                    <input class="student-search" type="text" placeholder="Buscar Estudiante o institución...">
+                </div>
+                <div class="user-actions">
+                    <button id="logoutBtn" class="btn-logout" type="button">Cerrar sesión</button>
+                    <div class="user-avatar profile-avatar-trigger">
+                        <img src="https://i.pravatar.cc/80?img=12" alt="Perfil" class="profile-photo">
+                    </div>
+                </div>
+            </header>
+
+            <section class="dashboard">
+                <h1 id="userTitle">Estudiantes Registrados</h1>
+                <p class="parrafo">Grupos de 10° y 11°</p>
+
+                <div class="stats-grid">
+                    <div class="card card-gray">
+                        <p>Total de Estudiantes</p>
+                        <span class="stat-number">0</span>
+                    </div>
+                    <div class="card card-blue">
+                        <a href="../totales_estudiantes/totales_estudiantes.html" class="card-link">
+                            <p>Ver Totales</p>
+                            <span class="card-arrow">→</span>
+                        </a>
+                    </div>
+                </div>
+
+                <section class="migration-panel" aria-labelledby="migrationTitle">
+                    <div>
+                        <h2 id="migrationTitle">Migración académica</h2>
+                        <p>Promueve a los estudiantes de 10° a 11° y retira a los de 11° al cerrar el año escolar.</p>
+                    </div>
+                    <button id="migrationPreviewButton" class="activity-button activity-button-primary" type="button">Ir a Migración</button>
+                </section>
+
+                <div id="migrationPreviewModal" class="migration-modal" hidden>
+                    <div class="migration-modal-backdrop" data-close-migration></div>
+                    <div class="migration-modal-card" role="dialog" aria-modal="true" aria-labelledby="migrationPreviewTitle">
+                        <button class="migration-modal-close" type="button" data-close-migration aria-label="Cerrar">×</button>
+                        <h2 id="migrationPreviewTitle">Vista previa de migración</h2>
+                        <p>Revisa la decisión de cada estudiante antes de cerrar el año escolar.</p>
+                        <div class="migration-years">
+                            <label>Año de origen <input id="migrationOriginYear" type="number" min="2000" required></label>
+                            <label>Año de destino <input id="migrationDestinationYear" type="number" min="2001" required></label>
+                        </div>
+                        <div class="migration-groups-header">
+                            <h3>Selecciona un grupo</h3>
+                            <input id="migrationStudentSearch" type="search" placeholder="Buscar estudiante..." aria-label="Buscar estudiante en el grupo">
+                        </div>
+                        <div id="migrationGroups" class="migration-groups" aria-label="Grupos de estudiantes"></div>
+                        <div class="migration-preview-table-wrap">
+                            <table class="students-table">
+                                <thead><tr><th>Estudiante</th><th>Grado</th><th>Grupo</th><th>Decisión</th><th>Traslado</th></tr></thead>
+                                <tbody id="migrationPreviewBody"></tbody>
+                            </table>
+                        </div>
+                        <div class="migration-modal-actions">
+                            <button class="activity-button" type="button" data-close-migration>Cancelar</button>
+                            <button id="confirmMigrationButton" class="activity-button activity-button-primary" type="button">Confirmar migración</button>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="migration-history-section" aria-labelledby="migrationHistoryTitle">
+                    <div class="section-header">
+                        <div>
+                            <h3 id="migrationHistoryTitle">Historial de migraciones</h3>
+                            <p>Consulta cuándo se ejecutó cada proceso y cuántos estudiantes fueron procesados.</p>
+                        </div>
+                        <button id="loadMigrationHistoryButton" class="activity-button" type="button">Actualizar historial</button>
+                    </div>
+                    <div class="table-container">
+                        <table class="students-table">
+                            <thead>
+                                <tr>
+                                    <th>Origen</th>
+                                    <th>Destino</th>
+                                    <th>Fecha</th>
+                                    <th>Ejecutó</th>
+                                    <th>Procesados</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="migrationHistoryBody">
+                                <tr><td colspan="6">No se ha cargado el historial.</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="student-roster-section table-section">
+                    <div class="section-header">
+                        <h3>Historial Registros</h3>
+                    </div>
+                    <div class="table-container">
+                        <table class="students-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>Grado</th>
+                                    <th>Estado</th>
+                                    <th>Total de horas</th>
+                                    <th>Certificado</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentRecordsTableBody"></tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <div id="transferStudentModal" class="migration-modal" hidden>
+                    <div class="migration-modal-backdrop" data-close-transfer></div>
+                    <div class="migration-modal-card transfer-modal-card" role="dialog" aria-modal="true" aria-labelledby="transferStudentTitle">
+                        <button class="migration-modal-close" type="button" data-close-transfer aria-label="Cerrar">×</button>
+                        <h2 id="transferStudentTitle">Trasladar estudiante</h2>
+                        <p id="transferStudentDescription"></p>
+                        <div class="migration-years transfer-fields">
+                            <label>Grado de destino
+                                <select id="transferGrade" required>
+                                    <option value="10">10°</option>
+                                    <option value="11">11°</option>
+                                </select>
+                            </label>
+                            <label>Grupo de destino
+                                <select id="transferGroup" required>
+                                    <option value="1">Grupo 1</option>
+                                    <option value="2">Grupo 2</option>
+                                    <option value="3">Grupo 3</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="migration-modal-actions">
+                            <button class="activity-button" type="button" data-close-transfer>Cancelar</button>
+                            <button id="confirmTransferButton" class="activity-button activity-button-primary" type="button">Confirmar traslado</button>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="student-groups-section" aria-labelledby="studentsGroupsTitle">
+                    <div class="section-header">
+                        <h3 id="studentsGroupsTitle">Listado por grupos</h3>
+                    </div>
+                    <div id="studentsGroupsContainer" class="students-groups-container"></div>
+                </section>
+
+            </section>
+        </main>
+    </div>
+
+    <script src="../../scripts/notifications.js"></script>
+    <script src="../../scripts/profile-photo.js"></script>
+    <script src="./estudiantes_registrados.js"></script>
+</body>
+</html>
