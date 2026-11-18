@@ -1,6 +1,6 @@
 (function setupApiClient() {
     // URL del backend en producción (Render). Cámbiala por la URL real de tu servicio.
-    const PRODUCTION_API_URL = "https://TU-BACKEND.onrender.com";
+    const PRODUCTION_API_URL = "https://horas-sociales-5rp0.onrender.com";
     const isLocalhost = ["localhost", "127.0.0.1"].includes(window.location.hostname)
         || window.location.protocol === "file:";
     const baseUrl = (window.SOCIALHOURS_API_URL
